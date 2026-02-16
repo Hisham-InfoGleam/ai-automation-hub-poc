@@ -1,8 +1,8 @@
 {
-  "name": "automation-api",
+  "name": "openclaw-clinical-interop-api",
   "version": "0.1.0",
   "private": true,
-  "description": "Core API for AI Automation Hub",
+  "description": "Core API for OpenClaw Clinical Interop POC",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",

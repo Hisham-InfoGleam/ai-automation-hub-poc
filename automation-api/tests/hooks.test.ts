@@ -22,20 +22,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import express from "express";
-import { automationsRouter } from "./routes/automations";
-import { healthRouter } from "./routes/health";
-import { hooksRouter } from "./routes/hooks";
-import { correlationId } from "./middleware/correlationId";
-import { errorHandler } from "./middleware/errorHandler";
+import request from "supertest";
+import { describe, expect, it } from "vitest";
+import app from "../src/app";
 
-const app = express();
+describe("POST /hooks/agent", () => {
+  it("accepts a valid hook payload", async () => {
+    const response = await request(app).post("/hooks/agent").send({
+      event: "lab.critical",
+      message: "Synthetic alert for demo.",
+      deliver: true,
+      channel: "telegram",
+      metadata: {
+        source: "demo",
+      },
+    });
 
-app.use(express.json());
-app.use(correlationId);
-app.use(healthRouter);
-app.use(automationsRouter);
-app.use(hooksRouter);
-app.use(errorHandler);
+    expect(response.status).toBe(202);
+    expect(response.body.accepted).toBe(true);
+    expect(response.body.event).toBe("lab.critical");
+  });
 
-export default app;
+  it("rejects payload with requestSessionKey enabled", async () => {
+    const response = await request(app).post("/hooks/agent").send({
+      event: "lab.critical",
+      message: "Synthetic alert for demo.",
+      requestSessionKey: true,
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe("requestSessionKey is not allowed.");
+  });
+});

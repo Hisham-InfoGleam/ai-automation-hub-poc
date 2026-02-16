@@ -31,6 +31,8 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction
 ) => {
+  void _next;
+
   if (err instanceof ZodError) {
     return res.status(400).json({ error: "Invalid request payload." });
   }

@@ -1,10 +1,14 @@
 # Private documentation (ALWAYS ignore)
-docs/
+docs/private/
+docs/agent/
 articles/
 notes/
+RAG Resources/
 *.secret.md
 *.private.md
 *.local.md
+*.internal.md
+*.agent.md
 INTERNAL-*.md
 *-INTERNAL.md
 *-PRIVATE.md

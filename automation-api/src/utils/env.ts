@@ -29,7 +29,8 @@ dotenv.config();
 
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).optional(),
-  PORT: z.coerce.number().int().positive().default(3000)
+  PORT: z.coerce.number().int().positive().default(3000),
+  OPENCLAW_HOOK_TOKEN: z.string().optional()
 });
 
 const parsed = envSchema.safeParse(process.env);

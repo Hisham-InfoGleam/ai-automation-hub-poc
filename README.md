@@ -71,7 +71,7 @@ Publish-safe placeholders used in this repo:
 - Expanded integration tests for routing and failure paths.
 
 ## Author
-Hisham Alrashdan
+Hisham Hussein Alrashdan
 
 ## License
 MIT License
